@@ -1,0 +1,138 @@
+Node MHCI_CancerCell {
+
+	logic = MHCI_CancerCell;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+Node MHCI_APC {
+
+	logic = Processing_simple_molecule;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node TCR {
+
+	logic = (MHCI_APC OR MHCI_CancerCell);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Processing_simple_molecule {
+
+	logic = Neoantigenuptake_simple_molecule;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node PD1L {
+
+	logic = PD1;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node CTLActivation_simple_molecule {
+
+	logic = (TCR OR NOT PD1L);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node EffectorTcell_simple_molecule {
+
+	logic = (CTLActivation_simple_molecule OR TCR);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node PI9 {
+
+	logic = PI9;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Granzyme {
+
+	logic = (EffectorTcell_simple_molecule OR NOT PI9);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node PD1 {
+
+	logic = PD1;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Perforin {
+
+	logic = EffectorTcell_simple_molecule;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node FASL {
+
+	logic = FASL;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node FAS {
+
+	logic = FASL;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Caspase8 {
+
+	logic = ((Granzyme AND Perforin) OR FAS);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Survivin {
+
+	logic = Survivin;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Caspase3 {
+
+	logic = (Caspase8 OR NOT Survivin);
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node CellDeath_simple_molecule {
+
+	logic = Caspase3;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Neoantigen {
+
+	logic = Neoantigen;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Neoantigenrelease_simple_molecule {
+
+	logic = Neoantigen;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
+
+Node Neoantigenuptake_simple_molecule {
+
+	logic = Neoantigenrelease_simple_molecule;
+	rate_up = @logic ? 1.0 : 0.0;
+	rate_down = @logic ? 0.0 : 1.0;
+}
